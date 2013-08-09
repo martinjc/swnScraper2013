@@ -51,5 +51,5 @@ for artist, data in artists.iteritems():
 
 print artists
 
-output = open('bands.json', 'w')
-output.write(json.dumps(artists))
+with open('bands.json', 'w') as outfile:
+    json.dump(artists, outfile)
