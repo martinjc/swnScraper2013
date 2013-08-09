@@ -1,6 +1,5 @@
 import urllib2
-import urllib
-import sys
+import json
 
 from bs4 import BeautifulSoup
 
@@ -51,3 +50,6 @@ for artist, data in artists.iteritems():
         data[source] = source_url
 
 print artists
+
+output = open('bands.json', 'w')
+output.write(json.dumps(artists))
