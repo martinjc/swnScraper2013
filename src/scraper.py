@@ -21,12 +21,17 @@ links = soup.select(".artist-listing h5 a")
 
 artists = {}
 
+with open("bands.json") as infile:
+    artists = json.load(infile)
+
 for link in links:
     url =  link.attrs["href"]
     artist = link.contents[0]
 
-    artists[artist] = {}
-    artists[artist]["swn_url"] = url
+    if artists.get("artist", None) is None:
+
+        artists[artist] = {}
+        artists[artist]["swn_url"] = url
 
 
 for artist, data in artists.iteritems():
@@ -51,5 +56,5 @@ for artist, data in artists.iteritems():
 
 print artists
 
-with open('bands.json', 'w') as outfile:
+with open("bands.json", "w") as outfile:
     json.dump(artists, outfile)
