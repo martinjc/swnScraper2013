@@ -1,5 +1,6 @@
 import urllib2
 import json
+import uuid
 
 from bs4 import BeautifulSoup
 
@@ -22,7 +23,10 @@ links = soup.select(".artist-listing h5 a")
 artists = {}
 
 with open("bands.json") as infile:
-    artists = json.load(infile)
+    try:
+        artists = json.load(infile)
+    except ValueError, e:
+        pass
 
 for link in links:
     url =  link.attrs["href"]
@@ -54,7 +58,8 @@ for artist, data in artists.iteritems():
 
         data[source] = source_url
 
-print artists
+    if data.get("id", None) is None:
+        artist_data["id"] = str(uuid.uuid4())
 
 with open("bands.json", "w") as outfile:
     json.dump(artists, outfile)

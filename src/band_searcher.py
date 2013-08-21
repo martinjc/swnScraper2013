@@ -28,21 +28,23 @@ with open("bands.json") as infile:
 
 for artist, artist_data in artists.iteritems():
 
-    #if artist_data.get("spotify_url", None) is None:
+    if artist_data.get("spotify_url", None) is None:
         
-    params = {
-        "q" : "artist:" + artist.encode("utf-8")
-    }
+        params = {
+            "q" : "artist:" + artist.encode("utf-8")
+        }
 
-    spotify_url = "http://ws.spotify.com/search/1/artist.json?" + urllib.urlencode(params)
+        spotify_root_url = "http://ws.spotify.com/search/1/artist.json?"
 
-    data = retrieve_json_data(spotify_url)
+        spotify_url =  spotify_root_url + urllib.urlencode(params)
 
-    if data.get("artists", None) is not None:
-        if len(data["artists"]) > 0:
-            artist_id = data["artists"][0]["href"].lstrip("spotify:artist:")
-            artist_data["spotify_id"] = data["artists"][0]["href"]
-            artist_data["spotify_url"] = "http://open.spotify.com/artist/" + artist_id
+        data = retrieve_json_data(spotify_url)
+
+        if data.get("artists", None) is not None:
+            if len(data["artists"]) > 0:
+                artist_id = data["artists"][0]["href"].lstrip("spotify:artist:")
+                artist_data["spotify_id"] = data["artists"][0]["href"]
+                artist_data["spotify_url"] = "http://open.spotify.com/artist/" + artist_id
 
     if artist_data.get("last_fm_url", None) is None:
 
