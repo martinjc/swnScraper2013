@@ -22,7 +22,7 @@ links = soup.select(".artist-listing h5 a")
 
 artists = {}
 
-with open("bands.json") as infile:
+with open("artists.json") as infile:
     try:
         artists = json.load(infile)
     except ValueError, e:
@@ -61,5 +61,5 @@ for artist, data in artists.iteritems():
     if data.get("id", None) is None:
         artist_data["id"] = str(uuid.uuid4())
 
-with open("bands.json", "w") as outfile:
+with open("artists.json", "w") as outfile:
     json.dump(artists, outfile)

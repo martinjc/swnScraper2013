@@ -22,7 +22,7 @@ def retrieve_json_data(url):
 
 artists = {}
 
-with open("bands.json") as infile:
+with open("artists.json") as infile:
     artists = json.load(infile)
 
 
@@ -90,5 +90,5 @@ for artist, artist_data in artists.iteritems():
                     count = 1 if int(tags["count"]) == 0 else int(tags["count"])
                     artist_data["tags"][name] = count
 
-with open("bands.json", "w") as outfile:
+with open("artists.json", "w") as outfile:
     json.dump(artists, outfile)
