@@ -59,7 +59,7 @@ for artist, data in artists.iteritems():
         data[source] = source_url
 
     if data.get("id", None) is None:
-        artist_data["id"] = str(uuid.uuid4())
+        data["id"] = str(uuid.uuid4())
 
 with open("artists.json", "w") as outfile:
     json.dump(artists, outfile)
